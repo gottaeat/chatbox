@@ -21,3 +21,6 @@ used. do note that the entrypoint will `chown` and `chmod` them automatically.
 | SSH banner    | `$DATA_DIR/sshd/banner` |
 | tmux          | `$DATA_DIR/.tmux.conf`  |
 | irssi         | `$DATA_DIR/.irssi/`     |
+| busybox ash   | `$DATA_DIR/.profile/`   |
+
+**warning**: make sure to define at least `LANG` and `LC_ALL` as `en_US.UTF-8`.
