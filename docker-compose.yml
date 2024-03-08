@@ -1,0 +1,22 @@
+version: "3"
+
+networks:
+    irc:
+        external: false
+
+services:
+    irc:
+        container_name: irc
+        build:
+            context: .
+        stdin_open: true
+        tty: true
+        restart: always
+        env_file:
+            - .env
+        networks:
+            - irc
+        volumes:
+            - ${DATA_DIR}:/data
+        ports:
+            - 3132:3132
