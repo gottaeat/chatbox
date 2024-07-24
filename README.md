@@ -6,7 +6,11 @@ tmux session is done via an sshd instance that runs as the `irc` user
 
 ### installation
 ```sh
-cp env.example .env # do modify the variables inside it
+git clone --depth=1 https://github.com/gottaeat/irc-docker
+cd irc-docker/
+
+cp env.example .env # modify the contents
+
 docker compose up
 ```
 
