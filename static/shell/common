@@ -11,6 +11,21 @@ evalret(){
     fi
 }
 
+shutdown() {
+    pinfo "caught SIGTERM/SIGINT, gracefully shutting down."
+
+    irssi_pid="$(pidof irssi)"
+    tmux_pid="$(pidof tmux)"
+    sshd_pid="$(pidof sshd)"
+
+    for pid in ${irssi_pid} ${tmux_pid} ${sshd_pid}; do
+        pinfo "killing ${pid}"
+        kill -TERM "${pid}" || true
+    done
+
+    exit 0
+}
+
 pinfo(){ echo "INFO: ${@}";}
 pwarn(){ echo "WARN: ${@}";}
 perr(){ echo "ERR : ${@}"; exit 1;}
