@@ -1,13 +1,12 @@
-FROM alpine:3.19.1 as irc
+FROM alpine:latest AS irc
+
+COPY ./static /static
 
 RUN \
     apk update && apk upgrade && \
     apk --no-cache add openssh tmux irssi && \
     addgroup -g 1337 irc && \
-    adduser -D -h /data -G irc -u 1337 irc && \
-    mkdir /static
-
-COPY ./static /static
+    adduser -D -h /data -G irc -u 1337 irc
 
 WORKDIR /data
 
