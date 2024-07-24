@@ -1,6 +1,8 @@
 #!/bin/sh
 . /static/shell/common
 
+trap shutdown SIGTERM SIGINT
+
 # -- sanity checks -- #
 if [ -z "${PUBKEY}" ]; then
     perr "PUBKEY envvar was not defined, exiting."
@@ -98,4 +100,6 @@ chmod 0600 /data/sshd/* /data/.ssh/*
 evalret
 
 pinfo "handing over to user \"irc\""
-su irc -c '/static/shell/user.sh'
+su irc -c '/static/shell/user.sh' &
+
+wait $!
