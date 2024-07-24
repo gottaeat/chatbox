@@ -1,6 +1,8 @@
 #!/bin/sh
 . /static/shell/common
 
+trap shutdown SIGTERM SIGINT
+
 pinfo "setting up the tmux session"
 tmux \
     new-session -d -t "irssi-docker" \; \
@@ -10,4 +12,4 @@ tmux \
 evalret
 
 pinfo "starting sshd on local port 3132"
-/usr/sbin/sshd -f sshd/sshd_config -D
+exec /usr/sbin/sshd -f sshd/sshd_config -D
