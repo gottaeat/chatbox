@@ -1,22 +1,22 @@
 ---
 networks:
-  irc:
+  chatbox:
     external: false
 
 services:
-  irc:
+  chatbox:
     #build:
     # context: .
-    image: ghcr.io/gottaeat/irc-docker:latest
-    container_name: irc
-    stdin_open: true
+    image: ghcr.io/gottaeat/chatbox:latest
+    container_name: chatbox
+    hostname: chatbox
     tty: true
     restart: unless-stopped
-    env_file:
-      - .env
+    environment:
+      PUBKEY: <pubkey here>
     networks:
-      - irc
+      - chatbox
     volumes:
-      - ${DATA_DIR}:/data
+      - ./data:/data
     ports:
-      - 3132:3132
+      - 2222:2222
