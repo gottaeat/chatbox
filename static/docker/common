@@ -1,0 +1,4 @@
+#!/bin/sh
+pinfo(){ echo "INFO: ${@}";}
+pwarn(){ echo "WARN: ${@}";}
+perr(){ echo "ERR : ${@}"; exit 1;}
