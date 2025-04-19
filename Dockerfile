@@ -1,9 +1,9 @@
-FROM alpine:3.21.3 AS irc
+FROM alpine:3.21.3 AS chatbox
 
-# add irc user and install packages
+# add chatbox user and install packages
 RUN \
-    addgroup -g 1337 irc && \
-    adduser -D -h /data -G irc -u 1337 irc && \
+    addgroup -g 1337 chatbox && \
+    adduser -D -h /data -G chatbox -u 1337 chatbox && \
     apk update && apk upgrade --no-cache && apk add --no-cache \
         dumb-init irssi dropbear tmux
 

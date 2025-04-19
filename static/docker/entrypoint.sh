@@ -4,7 +4,7 @@
 set -e
 # - - graceful shutdown - - #
 stop() {
-    pinfo "stopping irc-docker"
+    pinfo "stopping chatbox"
 
     pinfo "stopping irssi"
     pkill -15 irssi
@@ -60,7 +60,7 @@ fi
 
 # perms
 pinfo "setting permissions"
-chown -Rh irc:irc /data
+chown -Rh chatbox:chatbox /data
 find /data/sshd /data/.ssh -type d -exec chmod 0700 {} ';'
 find /data/sshd /data/.ssh -type f -exec chmod 0600 {} ';'
 
@@ -69,10 +69,10 @@ pinfo "starting syslogd"
 syslogd -O - -n &
 
 pinfo "starting tmux session"
-su irc -c 'tmux new-session -d -t "irssi-docker" \; send-keys "irssi" C-m'
+su chatbox -c 'tmux new-session -d -t "chatbox" \; send-keys "irssi" C-m'
 
 pinfo "starting dropbear"
-su irc -c 'dropbear -p2222 -m -w -s -g -G irc -T 5 -j -k -K 120 \
+su chatbox -c 'dropbear -p2222 -m -w -s -g -G chatbox -T 5 -j -k -K 120 \
     -b /data/sshd/banner \
     -r /data/sshd/dropbear_ecdsa_host_key'
 
