@@ -1,18 +1,23 @@
-FROM alpine:latest AS irc
+FROM alpine:3.21.3 AS irc
 
-COPY ./static /static
-
+# add irc user and install packages
 RUN \
-    apk update && apk upgrade && \
-    apk --no-cache add openssh tmux irssi && \
     addgroup -g 1337 irc && \
-    adduser -D -h /data -G irc -u 1337 irc
+    adduser -D -h /data -G irc -u 1337 irc && \
+    apk update && apk upgrade --no-cache && apk add --no-cache \
+        dumb-init irssi dropbear tmux
+
+# copy over conf
+COPY ./static/files/.profile /static/.profile
+COPY ./static/files/banner   /static/banner
+
+# entrypoint
+COPY ./static/docker /docker
+RUN chmod +x /docker/entrypoint.sh
+
+# sshd
+EXPOSE 2222
 
 WORKDIR /data
-
-ENV HOME="/data"
-ENV LANG="en_US.UTF-8"
-ENV LC_ALL="en_US.UTF-8"
-
-EXPOSE 3132
-CMD /static/shell/entrypoint.sh
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/docker/entrypoint.sh"]
