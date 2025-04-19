@@ -9,14 +9,14 @@ services:
     # context: .
     image: ghcr.io/gottaeat/irc-docker:latest
     container_name: irc
-    stdin_open: true
+    hostname: irc
     tty: true
     restart: unless-stopped
-    env_file:
-      - .env
+    environment:
+      PUBKEY: <pubkey here>
     networks:
       - irc
     volumes:
-      - ${DATA_DIR}:/data
+      - ./data:/data
     ports:
-      - 3132:3132
+      - 2222:2222
