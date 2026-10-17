@@ -1,4 +1,4 @@
-FROM alpine:3.24.1 AS chatbox
+FROM alpine:3.24.2 AS chatbox
 
 # add chatbox user and install packages
 # # apk-tools has a bug that breaks on emulated armv7
