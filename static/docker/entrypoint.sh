@@ -50,7 +50,7 @@ fi
 
 pinfo "setting authorized_keys"
 mkdir -p /data/.ssh/ >/dev/null 2>&1
-echo "${PUBKEY}" > /data/.ssh/authorized_keys
+printf '%s\n' "${PUBKEY}" > /data/.ssh/authorized_keys
 
 # shell
 if [ ! -f "/data/.profile" ]; then
